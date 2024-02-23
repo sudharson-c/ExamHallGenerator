@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const session = require('express-session'); // Import express-session
+const session = require('express-session'); 
 const data = require("./data");
 const app = express();
 const cors = require("cors");

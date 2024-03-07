@@ -20,17 +20,20 @@ app.use("/students", studentRouter);
 app.use(cors());
 
 app.get("/generate", (req, res) => {
-  const rows = req.session.rows || 10;
-  const cols = req.session.cols || 5;
-  res.render("tables", { data: data, rows: rows, cols: cols });
+  const rows = req.session.rows || 7;
+  const cols = req.session.cols || 6;
+  const date = req.session.date  || new Date().toISOString().slice(0,-10);
+  res.render("tables", { data: data, rows: rows, cols: cols ,date:date});
 });
 
 app.post("/generate", (req, res) => {
   const rows = req.body.rows
   const cols = req.body.columns
+  const date = req.body.date
   req.session.rows = rows; 
   req.session.cols = cols; 
-  res.render("tables", { data: data, rows: rows, cols: cols });
+  req.session.date = date;
+  res.render("tables", { data: data, rows: rows, cols: cols ,date: date});
 });
 
 app.listen(5000, () => console.log("Server running successfully"));

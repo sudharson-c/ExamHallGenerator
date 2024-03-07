@@ -48,10 +48,16 @@
   <body>
     <% let i, j, k = 0, tableName = 1; %> <% let remainingData = locals.data.length; %>
     <center><a class="btn btn-primary" href="/">Home</a></center>
+    <button class="btn btn-primary" style="position: absolute;margin-left: 85%" onclick="downloadTable()">Download</button>
     <form action="/students" method="get" >
-      <button class="btn btn-outline-success m">Student list</button>
+      <button class="btn btn-outline-success m" type="submit">Student list</button>
+      
     </form>
+    
     <br />
+    <% let date = new Date(locals.date.toLocaleString()); %>
+    <% date = date.getDate()+"/" +(date.getMonth()+1)+"/"+date.getFullYear(); %>
+    <h3>Date : <%= date %></h3>
     <% while (remainingData > 0) { %>
     <table class="table table-bordered">
       <thead>
@@ -64,14 +70,16 @@
         <% for (j = 0; j < locals.cols; j++) { %> <% if (remainingData > 0) { %>
         <% if (locals.data[k].absent) { %>
         <td class="absent">
+          
           <form action="/students/<%= k %>" method="get">
-            <button type="submit"><%= locals.data[k++].regno %></button>
+            <button type="submit"><%= locals.data[k++].regno %> ❌</button>
           </form>
+          
         </td>
         <% } else { %>
         <td class="not-absent">
           <form action="/students/<%= k %>" method="get">
-            <button type="submit"><%= locals.data[k++].regno %></button>
+            <button type="submit"><%= locals.data[k++].regno %> ✅</button>
           </form>
         </td>
         <% } %> <% } else { %>
@@ -80,7 +88,13 @@
       </tr>
       <% } %>
     </table>
-    <!-- <button class="btn btn-primary download-btn" onclick="">Download Table</button> -->
     <% } %>
+    <script>
+      // const date = document.getElementsByTagName("h3")
+      // date.item(0).innerHTML += new Date().toLocaleString().slice(0, -10);
+      function downloadTable(){
+        window.print()
+      }
+    </script>
   </body>
 </html>

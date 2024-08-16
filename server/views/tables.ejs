@@ -51,13 +51,12 @@
     <button class="btn btn-primary" style="position: absolute;margin-left: 85%" onclick="downloadTable()">Download</button>
     <form action="/students" method="get" >
       <button class="btn btn-outline-success m" type="submit">Student list</button>
-      
     </form>
     
     <br />
     <% let date = new Date(locals.date.toLocaleString()); %>
     <% date = date.getDate()+"/" +(date.getMonth()+1)+"/"+date.getFullYear(); %>
-    <h3>Date : <%= date %></h3>
+    <h3>Date : <%= locals.date %></h3>
     <% while (remainingData > 0) { %>
     <table class="table table-bordered">
       <thead>
@@ -72,14 +71,16 @@
         <td class="absent">
           
           <form action="/students/<%= k %>" method="get">
-            <button type="submit"><%= locals.data[k++].regno %> ❌</button>
+            <button><%= locals.data[k++].regno %></button>
+            <button type="submit">present</button>
           </form>
           
         </td>
         <% } else { %>
         <td class="not-absent">
           <form action="/students/<%= k %>" method="get">
-            <button type="submit"><%= locals.data[k++].regno %> ✅</button>
+            <button><%= locals.data[k++].regno %></button>
+            <button type="submit">absent</button>
           </form>
         </td>
         <% } %> <% } else { %>
